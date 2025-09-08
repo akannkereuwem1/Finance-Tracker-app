@@ -7,8 +7,6 @@ import javafx.stage.Stage;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-import static com.example.financeapp.Session.getUserId;
-
 public class IncomeFormController {
 
     @FXML private DatePicker dateField;
@@ -17,15 +15,15 @@ public class IncomeFormController {
     @FXML private TextArea notesField;
     @FXML private Label previewBalance;
 
-    private DashboardController dashboardController;
+    private DashboardController dashboardController; // ✅ should be DashboardController
     private int userId;
 
+    // Correct setter
     public void setDashboardController(DashboardController controller) {
         this.dashboardController = controller;
     }
 
-
-    public void setUserId(int userId) {   // 👈 add this setter
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
@@ -38,7 +36,7 @@ public class IncomeFormController {
 
     private String getPreviewBalance(String newVal) {
         try {
-            double currentBalance = Database.getBalance(getUserId());
+            double currentBalance = Database.getBalance(userId);
             double entered = Double.parseDouble(newVal);
             return "Balance after adding: $" + String.format("%.2f", (currentBalance + entered));
         } catch (NumberFormatException e) {
@@ -59,9 +57,9 @@ public class IncomeFormController {
             pstmt.setString(5, notesField.getText());
             pstmt.executeUpdate();
 
-            if (dashboardController != null) dashboardController.updateSummary();
+            if (dashboardController != null) dashboardController.refresh(); // ✅ now works
 
-            onCancelClick(); // close window
+            onCancelClick();
         } catch (Exception e) {
             e.printStackTrace();
         }

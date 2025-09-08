@@ -23,11 +23,10 @@ public class IncomeController {
     private final ObservableList<Income> incomes = FXCollections.observableArrayList();
     private int userId;
 
-
-
-    public void setUserId(int userId) {   // 👈 add this setter
+    public void setUserId(int userId) {
         this.userId = userId;
     }
+
     @FXML
     public void initialize() {
         dateColumn.setCellValueFactory(data -> data.getValue().dateProperty());
@@ -38,13 +37,41 @@ public class IncomeController {
         loadIncome();
     }
 
+    private int requireUserId() {
+        int uid = (userId > 0) ? userId : Session.getUserId();
+        if (uid <= 0) System.err.println("IncomeController: userId is not set.");
+        return uid;
+    }
+
+    @FXML
+    protected void onAddIncomeClick() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("income-form.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            IncomeFormController controller = loader.getController();
+            // ✅ pass DashboardController (not IncomeController)
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Add Income");
+
+            // Set current userId
+            controller.setUserId(requireUserId());
+            stage.showAndWait();
+
+            loadIncome(); // refresh table after adding
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void loadIncome() {
         incomes.clear();
         String sql = "SELECT date, source, amount, notes FROM income WHERE user_id = ? ORDER BY id DESC";
         try (Connection conn = Database.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, Session.getUserId());
+            pstmt.setInt(1, requireUserId());
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -62,18 +89,6 @@ public class IncomeController {
         }
     }
 
-    @FXML
-    protected void onAddIncomeClick() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("income-form.fxml"));
-        Stage stage = new Stage();
-        stage.setScene(new Scene(loader.load()));
-        stage.setTitle("Add Income");
-        stage.showAndWait();
-
-        loadIncome(); // refresh after adding
-    }
-
-    // Navigation
     @FXML protected void onDashboardClick() throws IOException { switchScene("dashboard-view.fxml"); }
     @FXML protected void onExpensesClick() throws IOException { switchScene("expenses-view.fxml"); }
     @FXML protected void onIncomeClick() throws IOException { switchScene("income-view.fxml"); }

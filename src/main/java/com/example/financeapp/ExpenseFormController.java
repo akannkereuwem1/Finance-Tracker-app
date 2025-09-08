@@ -39,7 +39,7 @@ public class ExpenseFormController {
 
     private String getPreviewBalance(String newVal) {
         try {
-            double currentBalance = Database.getBalance(getUserId());
+            double currentBalance = Database.getBalance(userId);
             double entered = Double.parseDouble(newVal);
             return "Balance after spending: $" + String.format("%.2f", (currentBalance - entered));
         } catch (NumberFormatException e) {
@@ -60,7 +60,7 @@ public class ExpenseFormController {
             pstmt.setString(5, notesField.getText());
             pstmt.executeUpdate();
 
-            if (dashboardController != null) dashboardController.updateSummary();
+            if (dashboardController != null) dashboardController.refresh();
 
             onCancelClick(); // close window
         } catch (Exception e) {
