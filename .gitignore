@@ -11,6 +11,8 @@ target/
 *.iws
 *.iml
 *.ipr
+*.db
+*.sql
 
 ### Eclipse ###
 .apt_generated
@@ -20,8 +22,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
-.db
-.sql
+
 
 ### NetBeans ###
 /nbproject/private/
