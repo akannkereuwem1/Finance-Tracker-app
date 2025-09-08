@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.financeapp.RegisterController"
+      alignment="CENTER" spacing="20"
+      style="-fx-background-color: #ECF0F1; -fx-padding: 40;">
+
+    <Label text="📝 Register New Account"
+           style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>
+
+    <GridPane hgap="15" vgap="15" alignment="CENTER">
+        <Label text="Username:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="usernameField"
+                   GridPane.rowIndex="0" GridPane.columnIndex="1"
+                   promptText="Choose a username"/>
+
+        <Label text="Password:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <PasswordField fx:id="passwordField"
+                       GridPane.rowIndex="1" GridPane.columnIndex="1"
+                       promptText="Choose a password"/>
+    </GridPane>
+
+    <HBox spacing="15" alignment="CENTER">
+        <Button text="Register"
+                onAction="#onRegisterClick"
+                style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-padding: 8 16;"/>
+        <Button text="Back to Login"
+                onAction="#onBackClick"
+                style="-fx-background-color: #7F8C8D; -fx-text-fill: white; -fx-padding: 8 16;"/>
+    </HBox>
+
+</VBox>

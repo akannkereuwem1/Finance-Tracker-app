@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.financeapp.DashboardController"
+            stylesheets="@styles.css">
+
+    <!-- Sidebar on the LEFT -->
+    <left>
+        <VBox spacing="15" style="-fx-background-color: #2C3E50; -fx-padding: 20;" prefWidth="180">
+            <Label text="Finance App" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+            <Button text="Dashboard" maxWidth="Infinity"/>
+            <Button text="Expenses" maxWidth="Infinity" onAction="#onExpensesClick"/>
+            <Button text="Income" maxWidth="Infinity" onAction="#onIncomeClick"/>
+            <Button text="About" maxWidth="Infinity" onAction="#onAboutClick"/>
+            <Button text="Logout" maxWidth="Infinity" onAction="#onLogoutClick"/>
+        </VBox>
+    </left>
+
+    <!-- Main Content in the CENTER -->
+    <center>
+        <VBox spacing="20" alignment="TOP_CENTER" style="-fx-padding: 20;">
+
+            <!-- Welcome Message -->
+            <Label fx:id="welcomeLabel" text="Welcome to your Dashboard" styleClass="label-title"/>
+
+            <!-- 🔹 Balance Summary Card -->
+            <HBox spacing="30" alignment="CENTER" style="-fx-background-color: #ffffff; -fx-padding: 15; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);">
+                <VBox alignment="CENTER">
+                    <Label text="Current Balance" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;"/>
+                    <Label fx:id="balanceLabel" text="N0.00" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #27ae60;"/>
+                </VBox>
+                <VBox alignment="CENTER">
+                    <Label text="Total Income" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;"/>
+                    <Label fx:id="totalIncomeLabel" text="N0.00" style="-fx-font-size: 18px; -fx-text-fill: #2980b9;"/>
+                </VBox>
+                <VBox alignment="CENTER">
+                    <Label text="Total Expenses" style="-fx-font-size: 14px; -fx-text-fill: #7f8c8d;"/>
+                    <Label fx:id="totalExpensesLabel" text="N0.00" style="-fx-font-size: 18px; -fx-text-fill: #c0392b;"/>
+                </VBox>
+            </HBox>
+
+            <!-- Recent Expenses Table -->
+            <TableView fx:id="expensesTable" prefHeight="300" prefWidth="600">
+                <columns>
+                    <TableColumn fx:id="dateColumn" text="Date" prefWidth="120"/>
+                    <TableColumn fx:id="categoryColumn" text="Category" prefWidth="150"/>
+                    <TableColumn fx:id="amountColumn" text="Amount" prefWidth="120"/>
+                    <TableColumn fx:id="notesColumn" text="Notes" prefWidth="200"/>
+                </columns>
+            </TableView>
+
+            <!-- Add Expense Button -->
+            <Button text="➕ Add Expense" onAction="#onAddExpenseClick"/>
+        </VBox>
+    </center>
+</BorderPane>

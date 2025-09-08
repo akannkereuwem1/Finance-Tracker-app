@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.financeapp.IncomeFormController"
+      spacing="15" alignment="CENTER"
+      style="-fx-padding: 20; -fx-background-color: #ECF0F1;">
+
+    <Label text="➕ Add Income"
+           style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <DatePicker fx:id="dateField" promptText="Select Date"/>
+    <TextField fx:id="sourceField" promptText="Source"/>
+    <TextField fx:id="amountField" promptText="Amount"/>
+    <TextArea fx:id="notesField" promptText="Notes (optional)" prefRowCount="3"/>
+
+    <!-- 🔹 Live preview balance -->
+    <Label fx:id="previewBalance" text="" style="-fx-text-fill: #27AE60; -fx-font-size: 14px;"/>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Save" onAction="#onSaveClick" style="-fx-background-color: #2980B9; -fx-text-fill: white;"/>
+        <Button text="Cancel" onAction="#onCancelClick"/>
+    </HBox>
+</VBox>

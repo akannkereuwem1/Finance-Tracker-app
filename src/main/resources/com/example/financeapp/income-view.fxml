@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.financeapp.IncomeController"
+            stylesheets="@styles.css">
+
+    <!-- Sidebar -->
+    <left>
+        <VBox spacing="15" style="-fx-background-color: #2C3E50; -fx-padding: 20;" prefWidth="180">
+            <Label text="Finance App" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+            <Button text="Dashboard" maxWidth="Infinity" onAction="#onDashboardClick"/>
+            <Button text="Expenses" maxWidth="Infinity" onAction="#onExpensesClick"/>
+            <Button text="Income" maxWidth="Infinity" styleClass="active-btn"/>
+            <Button text="Logout" maxWidth="Infinity" onAction="#onLogoutClick"/>
+        </VBox>
+    </left>
+
+    <!-- Income content -->
+    <center>
+        <VBox spacing="20" alignment="TOP_CENTER" styleClass="card" style="-fx-padding: 20;">
+            <Label text="Income" styleClass="label-title"/>
+
+            <TableView fx:id="incomeTable" prefHeight="400" prefWidth="600">
+                <columns>
+                    <TableColumn fx:id="dateColumn" text="Date" prefWidth="100"/>
+                    <TableColumn fx:id="sourceColumn" text="Source" prefWidth="150"/>
+                    <TableColumn fx:id="amountColumn" text="Amount" prefWidth="120"/>
+                    <TableColumn fx:id="notesColumn" text="Notes" prefWidth="230"/>
+                </columns>
+            </TableView>
+
+            <Button text="➕ Add Income" onAction="#onAddIncomeClick"/>
+        </VBox>
+    </center>
+</BorderPane>
